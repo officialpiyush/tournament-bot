@@ -19,14 +19,15 @@ from discord.ext import commands
 import motor.motor_asyncio as amotor
 import asyncio
 import logging
+import os
 
-dbClient = amotor.AsyncIOMotorClient("")
+dbClient = amotor.AsyncIOMotorClient("mongodb://localhost:27017/")
 
 bot = commands.Bot(command_prefix='t!')
 
 bot.db= dbClient.client['tournament_bot']
 
-extensions = ['cogs.settings']
+extensions = ['cogs.settings','cogs.errors']
 if __name__ == "__main__":
     for extension in extensions:
         bot.load_extension(extension)
@@ -34,8 +35,8 @@ if __name__ == "__main__":
 
 @bot.event
 async def on_ready():
-    print(f"[BOT] Ready!") 
-    await bot.change_presence(activity = discord.Game(name='Tournaments')) 
+    print(f"[BOT] Ready!")
+    await bot.change_presence(activity = discord.Game(name='Tournaments'))
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -45,4 +46,4 @@ logger.addHandler(handler)
 
 
 
-bot.run("")
+bot.run(os.getenv("bottoken"))
