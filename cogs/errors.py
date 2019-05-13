@@ -36,7 +36,7 @@ class ErrorCog(commands.Cog):
             await ctx.send(f"Bad arguments supplied.")
             await ctx.send_help(ctx.command)
         elif isinstance(error, commands.errors.NotOwner):
-            await ctx.send("This command is only for my master, AXVin!!!!")
+            await ctx.send("This command is only for my master!!!!")
         elif isinstance(error, discord.errors.Forbidden):
             await ctx.send("I don't have enough permsissions to do that!")
         elif isinstance(error, commands.errors.MissingPermissions):
